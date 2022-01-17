@@ -32,7 +32,8 @@ sv = Service(
 #    await bot.send(ev, '我焯，有○批')
 
 @sv.on_keyword(('原神', '刻晴', '可莉', '派蒙', '凝光', '八重', '神子', '申鹤', '宵宫',
-     '云堇','提瓦特','芭芭拉','七七','甘雨','雷电将军'))
+     '云堇','提瓦特','芭芭拉','七七','甘雨','雷电将军','魈','香菱','行秋','重云','砂糖','莫娜','凯亚','丽莎','雷泽','温迪','北斗','安柏'
+                ,'迪卢克','班尼特','菲谢尔','诺埃尔'))
 async def chat_sad(bot, ev):
     path = '/home/qqbot/HoshinoBot/haru-bot-setup-master/hoshino/modules/antiyp/yp/'
     ypimg = random.choice(os.listdir(path))
