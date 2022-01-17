@@ -26,8 +26,21 @@ sv = Service(
     help_ = sv_help #帮助文本
     )
 
-@sv.on_keyword(('原神', '刻晴', '可莉', '派蒙', '凝光', '八重', '神子', '申鹤', '宵宫',
-     '云堇'))
-async def chat_sad(bot, ev):
-    await bot.send(ev, '我焯，有○批')
+#@sv.on_keyword(('原神', '刻晴', '可莉', '派蒙', '凝光', '八重', '神子', '申鹤', '宵宫',
+#     '云堇','提瓦特'))
+#async def chat_sad(bot, ev):
+#    await bot.send(ev, '我焯，有○批')
 
+@sv.on_keyword(('原神', '刻晴', '可莉', '派蒙', '凝光', '八重', '神子', '申鹤', '宵宫',
+     '云堇','提瓦特'))
+async def chat_sad(bot, ev):
+    path = '/home/qqbot/HoshinoBot/haru-bot-setup-master/hoshino/modules/antiyp/yp/'
+    ypimg = random.choice(os.listdir(path))
+    msg = f'○批滚出去\n'
+    try:
+        ypimg = R.img(f'{ypimg}').cqcode
+        msg += str(ypimg)
+    except Exception as e:
+        hoshino.logger.error(f'读取反原批的图片时发生错误{type(e)}')
+    await bot.send(ev, msg, at_sender=True)
+    await util.silence(ev, 60)
