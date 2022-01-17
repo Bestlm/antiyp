@@ -1,21 +1,33 @@
 import os
+import re
 import random
-import aiohttp
-from hoshino import R, Service, util
-from hoshino.config import RES_DIR
 
-sv = Service('antiyp', help_='原批滚出去')
+from nonebot import on_command
+from datetime import datetime
+import pytz
 
-antiyp = os.path.join(os.path.expanduser(RES_DIR), 'img', 'yp')
+import hoshino
+from hoshino import R, Service, priv, util
+from hoshino.typing import CQEvent
 
-@sv.on_keyword(('原神','刻晴','可莉','派蒙','凝光','八重','神子','申鹤','宵宫','云堇'))
-async def qks_keyword(bot, ev):
-   yp = random.choice(os.listdir(antiyp))
-    msg = f'○批滚出去\n'
-    try:
-        ypimg = R.img(f'antiyp/{ypimg}').cqcode
-        msg += str(ypimg)
-    except Exception as e:
-        hoshino.logger.error(f'读取反原神的图片时发生错误{type(e)}')
-    await bot.send(ev, msg, at_sender=True)
-    await util.silence(ev, 60)
+tz = pytz.timezone('Asia/Shanghai')
+
+sv_help = '''
+原批滚出去
+'''.strip()
+
+sv = Service(
+    name = 'antiyp',  #功能名
+    use_priv = priv.NORMAL, #使用权限
+    manage_priv = priv.SUPERUSER, #管理权限
+    visible = False, #False隐藏
+    enable_on_default = True, #是否默认启用
+    bundle = '通用', #属于哪一类
+    help_ = sv_help #帮助文本
+    )
+
+@sv.on_keyword(('原神', '刻晴', '可莉', '派蒙', '凝光', '八重', '神子', '申鹤', '宵宫',
+     '云堇'))
+async def chat_sad(bot, ev):
+    await bot.send(ev, '我焯，有○批')
+
